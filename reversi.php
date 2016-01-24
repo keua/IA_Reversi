@@ -74,8 +74,7 @@ class Reversi {
     public function getFichasRival(){
       return $this->fichasRival;
     }
-    public function getPosiblesMovimientos()
-    {
+    public function getPosiblesMovimientos(){
       $this->posiblesMovimientos = array();
 
       for($i = 0; $i < sizeof($this->libres); $i++){
@@ -170,11 +169,12 @@ class Reversi {
           if(($this->libres[$i]->getPosX()+$j >= 0 && $this->libres[$i]->getPosX()+$j <= 7) 
           && ($this->libres[$i]->getPosY()+$j >= 0 && $this->libres[$i]->getPosY()+$j <= 7)){
             $sigCasilla = $this->getValor($this->libres[$i]->getPosX() + $j ,$this->libres[$i]->getPosY() + $j);
-            if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getPosX() > 0 
-            && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getPosX() <= 7   
-            && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getValor() < 2
-            && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
-                array_push($this->posiblesMovimientos,$this->libres[$i]);
+            if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
+              if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getPosX() > 0 
+              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getPosX() <= 7   
+              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getValor() < 2
+              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
+                  array_push($this->posiblesMovimientos,$this->libres[$i]);
               }
             }
           }
@@ -197,6 +197,10 @@ class Reversi {
       }
       return $this->posiblesMovimientos;
     }
+      
+  public function getMejorMovimiento(){
+    
+  }
 }
 
 ?>
