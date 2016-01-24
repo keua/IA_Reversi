@@ -141,14 +141,10 @@ class Reversi {
           && ($this->libres[$i]->getPosY()-$j >= 0 && $this->libres[$i]->getPosY()-$j <= 7)){
             $sigCasilla = $this->getValor($this->libres[$i]->getPosX() + $j ,$this->libres[$i]->getPosY() - $j);
             if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-              if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getPosX() > 0 
-              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getPosX() <= 7
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getPosY() < 0
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getPosY() <= 7   
-              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getValor() < 2
-              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getValor() != $this->turno
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getValor() < 2
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getValor() != $this->turno){
+              if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() - 1)->getPosX() > 0 
+              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() - 1)->getPosX() <= 7   
+              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() - 1)->getValor() < 2
+              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() - 1)->getValor() != $this->turno){
                 array_push($this->posiblesMovimientos,$this->libres[$i]);
             }
           }
@@ -160,14 +156,10 @@ class Reversi {
           && ($this->libres[$i]->getPosY()+$j >= 0 && $this->libres[$i]->getPosY()+$j <= 7)){
             $sigCasilla = $this->getValor($this->libres[$i]->getPosX() - $j ,$this->libres[$i]->getPosY() + $j);
             if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-              if($this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getPosX() > 0 
-              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getPosX() <= 7
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getPosY() < 0
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getPosY() <= 7   
-              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getValor() < 2
-              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getValor() != $this->turno
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getValor() < 2
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
+              if($this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() + 1)->getPosX() > 0 
+              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() + 1)->getPosX() <= 7   
+              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() + 1)->getValor() < 2
+              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
                 array_push($this->posiblesMovimientos,$this->libres[$i]);
               }
             }
@@ -178,15 +170,10 @@ class Reversi {
           if(($this->libres[$i]->getPosX()+$j >= 0 && $this->libres[$i]->getPosX()+$j <= 7) 
           && ($this->libres[$i]->getPosY()+$j >= 0 && $this->libres[$i]->getPosY()+$j <= 7)){
             $sigCasilla = $this->getValor($this->libres[$i]->getPosX() + $j ,$this->libres[$i]->getPosY() + $j);
-            if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-              if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getPosX() > 0 
-              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getPosX() <= 7
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getPosY() < 0
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getPosY() <= 7   
-              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getValor() < 2
-              && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getValor() != $this->turno
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getValor() < 2
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
+            if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getPosX() > 0 
+            && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getPosX() <= 7   
+            && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getValor() < 2
+            && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
                 array_push($this->posiblesMovimientos,$this->libres[$i]);
               }
             }
@@ -198,14 +185,10 @@ class Reversi {
           && ($this->libres[$i]->getPosY()-$j >= 0 && $this->libres[$i]->getPosY()-$j <= 7)){
             $sigCasilla = $this->getValor($this->libres[$i]->getPosX() - $j ,$this->libres[$i]->getPosY() - $j);
             if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-              if($this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getPosX() > 0 
-              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getPosX() <= 7
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getPosY() < 0
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getPosY() <= 7   
-              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getValor() < 2
-              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getValor() != $this->turno
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getValor() < 2
-              && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getValor() != $this->turno){
+              if($this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() - 1)->getPosX() > 0 
+              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() - 1)->getPosX() <= 7   
+              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() - 1)->getValor() < 2
+              && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() - 1)->getValor() != $this->turno){
                 array_push($this->posiblesMovimientos,$this->libres[$i]);
               }
             }
