@@ -44,7 +44,7 @@ if (isset($_GET['estado']) && isset($_GET['turno'])) {
     //echo("<br> posision fichas rival");
      for($i = 0;  $i < sizeof($movimiento->getFichasRival()); $i++){
        //if($i%7 == 0) echo("<br>");
-     // print("(".$movimiento->getFichasRival()[$i]->getPosX().",".$movimiento->getFichasRival()[$i]->getPosY().")");
+      //print("(".$movimiento->getFichasRival()[$i]->getPosX().",".$movimiento->getFichasRival()[$i]->getPosY().")");
     }
     //echo("<br> Posibles Movimientos");
     if($movimiento->getPosiblesMovimientos() != null){
@@ -56,7 +56,7 @@ if (isset($_GET['estado']) && isset($_GET['turno'])) {
       //print("no hay espacios");
     }
   //echo("<br> Posibles Movimientos Ordenados <br>");
-    //print("(".$movimiento->getMejorMovimiento()->getPrioridad().",".$movimiento->getMejorMovimiento()->getPosX().",".$movimiento->getMejorMovimiento()->getPosY().")");
+   // print("(".$movimiento->getMejorMovimiento()->getPrioridad().",".$movimiento->getMejorMovimiento()->getPosX().",".$movimiento->getMejorMovimiento()->getPosY().")");
     
     echo($movimiento->getMejorMovimiento()->getPosX().$movimiento->getMejorMovimiento()->getPosY());
 }

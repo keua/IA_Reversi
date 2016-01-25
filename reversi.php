@@ -81,123 +81,217 @@ class Reversi {
         $this->posiblesMovimientos = array();
 
         for($i = 0; $i < sizeof($this->libres); $i++){
+        
           //-fila "norte"
-          for($j = 1; $j < 7; $j++){
-            if($this->libres[$i]->getPosX()-$j >= 0 && $this->libres[$i]->getPosX()-$j <= 7){
-              $sigCasilla = $this->getValor($this->libres[$i]->getPosX() - $j ,$this->libres[$i]->getPosY());
-              if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-                if($this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getPosX() > 0 
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getPosX() <= 7
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getValor() < 2
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY())->getValor() != $this->turno){
-                  if(!in_array($this->libres[$i],$this->posiblesMovimientos))array_push($this->posiblesMovimientos,$this->libres[$i]);
+          
+                  if(!in_array($this->libres[$i],$this->posiblesMovimientos)){
+                    $primera = 0;
+                    if($this->libres[$i]->getPosX() > 0){
+                       for($k = $this->libres[$i]->getPosX() - 1; $k >= 0; $k--){
+                          if($this->getValor($k,$this->libres[$i]->getPosY())->getValor() == 2 ){
+                          break;
+                          }elseif($primera == 0
+                             && $this->getValor($k,$this->libres[$i]->getPosY())->getValor() == $this->turno){
+                          break;
+                          }elseif($this->fichasRival[0]->getValor() == $this->getValor($k,$this->libres[$i]->getPosY())->getValor()){
+                          $primera++;
+                          continue;
+                          }else{
+                          array_push($this->posiblesMovimientos,$this->libres[$i]);
+                          break;
+                          }
+                        }
+                      }
+                   }
+          
+          //-columna "este"
+          
+            if($this->libres[$i]->getPosY() > 0){
+                  if(!in_array($this->libres[$i],$this->posiblesMovimientos)){
+                    $primera = 0;
+                    for($k = $this->libres[$i]->getPosY() - 1; $k >= 0; $k--){
+                      if($this->getValor($this->libres[$i]->getPosX(),$k)->getValor() == 2 ){
+                        break;
+                      }elseif($primera == 0
+                           && $this->getValor($this->libres[$i]->getPosX(),$k)->getValor() == $this->turno){
+                        break;
+                      }elseif($this->fichasRival[0]->getValor() == $this->getValor($this->libres[$i]->getPosX(),$k)->getValor()){
+                        $primera++;
+                        continue;
+                      }else{
+                        array_push($this->posiblesMovimientos,$this->libres[$i]);
+                        break;
+                   }
+                 }
+              }
+            }
+          //+columna "oeste"
+
+            if($this->libres[$i]->getPosY() < 7){
+                  if(!in_array($this->libres[$i],$this->posiblesMovimientos)){
+                    $primera = 0;
+                    for($k = $this->libres[$i]->getPosY() + 1; $k <= 7; $k++){
+                      if($this->getValor($this->libres[$i]->getPosX(),$k)->getValor() == 2 ){
+                        break;
+                      }elseif($primera == 0
+                           && $this->getValor($this->libres[$i]->getPosX(),$k)->getValor() == $this->turno){
+                        break;
+                      }elseif($this->fichasRival[0]->getValor() == $this->getValor($this->libres[$i]->getPosX(),$k)->getValor()){
+                        $primera++;
+                        continue;
+                      }else{
+                        array_push($this->posiblesMovimientos,$this->libres[$i]);
+                        break;
+                  }
                 }
               }
             }
-          }
-          //-columna "oeste"
-         for($j = 1; $j < 7; $j++){
-            if($this->libres[$i]->getPosY()-$j >= 0 && $this->libres[$i]->getPosY()-$j <= 7){
-              $sigCasilla = $this->getValor($this->libres[$i]->getPosX() ,$this->libres[$i]->getPosY() - $j);
-              if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-                if($this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getPosY() > 0 
-                && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getPosY() <= 7
-                && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getValor() < 2
-                && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() - 1)->getValor() != $this->turno){
-                  if(!in_array($this->libres[$i],$this->posiblesMovimientos))array_push($this->posiblesMovimientos,$this->libres[$i]);
-                }
-              }
-            }
-          }
-          //+columna "este"
-         for($j = 1; $j < 7; $j++){
-            if($this->libres[$i]->getPosY()+$j >= 0 && $this->libres[$i]->getPosY()+$j <= 7){
-              $sigCasilla = $this->getValor($this->libres[$i]->getPosX() ,$this->libres[$i]->getPosY() + $j);
-              if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-                if($this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getPosY() > 0 
-                && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getPosY() <= 7
-                && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getValor() < 2
-                && $this->getValor($this->libres[$i]->getPosX(),$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
-                  if(!in_array($this->libres[$i],$this->posiblesMovimientos))array_push($this->posiblesMovimientos,$this->libres[$i]);
-                }
-              }
-            }
-          }
+
           //+fila "sur"
-          for($j = 1; $j < 7; $j++){
-            if($this->libres[$i]->getPosX()+$j >= 0 && $this->libres[$i]->getPosX()+$j <= 7){
-              $sigCasilla = $this->getValor($this->libres[$i]->getPosX() + $j ,$this->libres[$i]->getPosY());
-              if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-                if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getPosX() > 0 
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getPosX() <= 7
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getValor() < 2
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY())->getValor() != $this->turno){
-                  if(!in_array($this->libres[$i],$this->posiblesMovimientos))array_push($this->posiblesMovimientos,$this->libres[$i]);
+          
+            if($this->libres[$i]->getPosX() < 7){
+                  if(!in_array($this->libres[$i],$this->posiblesMovimientos)){
+                    $primera = 0;
+                    for($k = $this->libres[$i]->getPosX() + 1; $k <= 7; $k++){
+                      if($this->getValor($k,$this->libres[$i]->getPosy())->getValor() == 2 ){
+                        break;
+                      }elseif($primera == 0
+                           && $this->getValor($k,$this->libres[$i]->getPosy())->getValor() == $this->turno){
+                        break;
+                      }elseif($this->fichasRival[0]->getValor() == $this->getValor($k,$this->libres[$i]->getPosy())->getValor()){
+                        $primera++;
+                        continue;
+                      }else{
+                        
+                        array_push($this->posiblesMovimientos,$this->libres[$i]);
+                        break;
+                  }
                 }
               }
             }
-          }
+
           //+fila -columna "sur-este"
-          for($j = 1; $j < 7; $j++){
-            if(($this->libres[$i]->getPosX()+$j >= 0 && $this->libres[$i]->getPosX()+$j <= 7) 
-            && ($this->libres[$i]->getPosY()-$j >= 0 && $this->libres[$i]->getPosY()-$j <= 7)){
-              $sigCasilla = $this->getValor($this->libres[$i]->getPosX() + $j ,$this->libres[$i]->getPosY() - $j);
-              if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-                if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() - 1)->getPosX() > 0 
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() - 1)->getPosX() <= 7   
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() - 1)->getValor() < 2
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() - 1)->getValor() != $this->turno){
-                  if(!in_array($this->libres[$i],$this->posiblesMovimientos))array_push($this->posiblesMovimientos,$this->libres[$i]);
-              }
-            }
-          }
-        }
+
+            if($this->libres[$i]->getPosX() < 7
+            && $this->libres[$i]->getPosY() > 0){
+                  if(!in_array($this->libres[$i],$this->posiblesMovimientos)){
+                    $primera = 0;
+                    $bandera = 0;
+                    for($k = $this->libres[$i]->getPosX() + 1; $k <= 7 && $bandera < 1; $k++){
+                      for($l = $this->libres[$i]->getPosY() - 1; $l >= 0; $l--){
+                        if($this->getValor($k,$l)->getValor() == 2 ){
+                          $bandera++;
+                          break;
+                        }elseif($primera == 0
+                             && $this->getValor($k,$l)->getValor() == $this->turno){
+                          $bandera++;
+                          break ;
+                        }elseif($this->fichasRival[0]->getValor() == $this->getValor($k,$l)->getValor()){
+                          $primera++;
+                          if($k < 7)$k++;
+                          continue ;
+                        }else{
+                          array_push($this->posiblesMovimientos,$this->libres[$i]);
+                          $bandera++;
+                          break;
+                        }
+                      }
+                    }
+                  }
+                }
+
           //-fila +columna "nor-oeste"
-          for($j = 1; $j < 7; $j++){
-            if(($this->libres[$i]->getPosX()-$j >= 0 && $this->libres[$i]->getPosX()-$j <= 7) 
-            && ($this->libres[$i]->getPosY()+$j >= 0 && $this->libres[$i]->getPosY()+$j <= 7)){
-              $sigCasilla = $this->getValor($this->libres[$i]->getPosX() - $j ,$this->libres[$i]->getPosY() + $j);
-              if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-                if($this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() + 1)->getPosX() > 0 
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() + 1)->getPosX() <= 7   
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() + 1)->getValor() < 2
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
-                  if(!in_array($this->libres[$i],$this->posiblesMovimientos))array_push($this->posiblesMovimientos,$this->libres[$i]);
+
+            if($this->libres[$i]->getPosX() > 0
+            && $this->libres[$i]->getPosY() < 7){
+                  if(!in_array($this->libres[$i],$this->posiblesMovimientos)){
+                    $primera = 0;
+                    $bandera = 0;
+                    for($k = $this->libres[$i]->getPosX() - 1; $k >= 0 && $bandera < 1; $k-- ){
+                      for($l = $this->libres[$i]->getPosY() + 1; $l <= 7; $l++){
+                        if($this->getValor($k,$l)->getValor() == 2 ){
+                          $bandera++;
+                          break;
+                        }elseif($primera == 0
+                             && $this->getValor($k,$l)->getValor() == $this->turno){
+                          $bandera++;
+                          break;
+                        }elseif($this->fichasRival[0]->getValor() == $this->getValor($k,$l)->getValor()){
+                          $primera++;
+                          if($k > 0)$k--;
+                          continue;
+                        }else{
+                          array_push($this->posiblesMovimientos,$this->libres[$i]);
+                          $bandera++;
+                          break;
+                    }
+                  }
                 }
               }
             }
-          }
+
           //+fila +columna "sur-oeste"
-          for($j = 1; $j < 7; $j++){
-            if(($this->libres[$i]->getPosX()+$j >= 0 && $this->libres[$i]->getPosX()+$j <= 7) 
-            && ($this->libres[$i]->getPosY()+$j >= 0 && $this->libres[$i]->getPosY()+$j <= 7)){
-              $sigCasilla = $this->getValor($this->libres[$i]->getPosX() + $j ,$this->libres[$i]->getPosY() + $j);
-              if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-                if($this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getPosX() > 0 
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getPosX() <= 7   
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getValor() < 2
-                && $this->getValor($this->libres[$i]->getPosX() + 1,$this->libres[$i]->getPosY() + 1)->getValor() != $this->turno){
-                    if(!in_array($this->libres[$i],$this->posiblesMovimientos))array_push($this->posiblesMovimientos,$this->libres[$i]);
+
+            if($this->libres[$i]->getPosX() <  7
+            && $this->libres[$i]->getPosY() >  0){
+                    if(!in_array($this->libres[$i],$this->posiblesMovimientos)){
+                      $primera = 0;
+                      $bandera = 0;
+                      for($k = $this->libres[$i]->getPosX() + 1; $k <= 7 && $bandera < 1; $k++ ){
+                        for($l = $this->libres[$i]->getPosY() - 1; $l >= 0; $l--){
+                          if($this->getValor($k,$l)->getValor() == 2 ){
+                            $bandera++;
+                            break;
+                          }elseif($primera == 0
+                               && $this->getValor($k,$l)->getValor() == $this->turno){
+                            $bandera++;
+                            break;
+                          }elseif($this->fichasRival[0]->getValor() == $this->getValor($k,$l)->getValor()){
+                            $primera++;
+                            if($k < 7)$k++;
+                            continue;
+                          }else{
+                            
+                            array_push($this->posiblesMovimientos,$this->libres[$i]);
+                            $bandera++;
+                            break;
+                    }
+                  }
                 }
               }
             }
-          }
+
           //-fila -columna "nor-este"
-          for($j = 1; $j < 7; $j++){
-            if(($this->libres[$i]->getPosX()-$j >= 0 && $this->libres[$i]->getPosX()-$j <= 7) 
-            && ($this->libres[$i]->getPosY()-$j >= 0 && $this->libres[$i]->getPosY()-$j <= 7)){
-              $sigCasilla = $this->getValor($this->libres[$i]->getPosX() - $j ,$this->libres[$i]->getPosY() - $j);
-              if($sigCasilla != null && $sigCasilla->getValor() == (int)$this->turno){
-                if($this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() - 1)->getPosX() > 0 
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() - 1)->getPosX() <= 7   
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() - 1)->getValor() < 2
-                && $this->getValor($this->libres[$i]->getPosX() - 1,$this->libres[$i]->getPosY() - 1)->getValor() != $this->turno){
-                  if(!in_array($this->libres[$i],$this->posiblesMovimientos))array_push($this->posiblesMovimientos,$this->libres[$i]);
+
+            if($this->libres[$i]->getPosX() >  0
+            && $this->libres[$i]->getPosY() >  0){
+                  if(!in_array($this->libres[$i],$this->posiblesMovimientos)){
+                    $primera = 0;
+                    $bandera = 0;
+                      for($k = $this->libres[$i]->getPosX() - 1 ; $k >= 0 && $bandera < 1; $k-- ){
+                        for($l = $this->libres[$i]->getPosY() - 1; $l >= 0; $l--){
+                          if($this->getValor($k,$l)->getValor() == 2 ){
+                            $bandera++;
+                            break;
+                          }elseif($primera == 0
+                               && $this->getValor($k,$l)->getValor() == $this->turno){
+                            $bandera++;
+                            break;
+                          }elseif($this->fichasRival[0]->getValor() == $this->getValor($k,$l)->getValor()){
+                            $primera++;
+                            if($k > 0)$k--;
+                            continue;
+                          }else{            
+                            array_push($this->posiblesMovimientos,$this->libres[$i]);
+                            $bandera++;
+                            break;
+                    }
+                  }
                 }
               }
             }
           }
-        }
+
         return $this->posiblesMovimientos;
       }
       return null;
